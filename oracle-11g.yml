@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  oracle_11g:
+    image: registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g
+    container_name: oracle_11g
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./volumes/oracle/data:/data/oracle
+    ports:
+      - 1521:1521
+    privileged: true
+    user: root
+    restart: always
+    command: /bin/bash -c "ln -s $ORACLE_HOME/bin/sqlplus /usr/bin"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 500M
+    networks:
+      application:
+        aliases:
+          -  net-oracle_11g
+
+
+networks:
+  application:
+   name: net
+   driver: bridge
