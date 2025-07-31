@@ -1,3 +1,4 @@
+# docker compose -p kafka -f kafka.yml up -d
 version: "3"
 services:
   kafka1:
@@ -41,6 +42,8 @@ services:
       #- "kafka1:云服务器IP"
       #- "kafka2:云服务器IP"
       #- "kafka3:云服务器IP"
+    mem_limit: 512M
+    cpus: 1.0
   kafka2:
     image: 'bitnami/kafka:3.3.1'
     network_mode: mynetwork
@@ -78,6 +81,8 @@ services:
       - KAFKA_BROKER_ID=2
     volumes:
       - ./volumes/kafka2/kafka/kraft:/bitnami/kafka
+    mem_limit: 512M
+    cpus: 1.0
   kafka3:
     image: 'bitnami/kafka:3.3.1'
     network_mode: mynetwork
@@ -115,3 +120,5 @@ services:
       - KAFKA_BROKER_ID=3
     volumes:
       - ./volumes/kafka3/kafka/kraft:/bitnami/kafka
+    mem_limit: 512M
+    cpus: 1.0
