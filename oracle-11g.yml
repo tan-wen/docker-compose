@@ -1,22 +1,23 @@
-version: '3.7'
+# docker compose -p oracle -f oracle-11g.yml up -d
 services:
   oracle_11g:
-    image: registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g
+    image: turingears/oracle-xe-11g:v2
     container_name: oracle_11g
     environment:
       - TZ=Asia/Shanghai
+      - ORACLE_PASSWORD=123456
     volumes:
       - ./volumes/oracle/data:/data/oracle
     ports:
       - 1521:1521
     privileged: true
     user: root
-    restart: always
+    #restart: always
     command: /bin/bash -c "ln -s $ORACLE_HOME/bin/sqlplus /usr/bin"
     deploy:
       resources:
         limits:
-          memory: 2G
+          memory: 1G
         reservations:
           memory: 500M
     networks:

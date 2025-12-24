@@ -1,10 +1,8 @@
 # docker-compose -p dev -f local-dev.yml up -d
-version: '3.1'
-
 services:
 
   mysql:
-    image: mysql
+    image: mysql:8.0.27
     command: --default-authentication-plugin=mysql_native_password
     container_name: mysql
     ports:
@@ -44,7 +42,7 @@ services:
     cpus: 1.0
       
   postgresql:
-    image: postgres
+    image: postgres:14.4
     container_name: postgresql
     environment:
       POSTGRES_DB: postgres

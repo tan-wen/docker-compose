@@ -1,0 +1,19 @@
+# docker compose up -d
+services:
+  timescaledb:
+    image: timescale/timescaledb:2.23.0-pg17
+    container_name: timescaledb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pipe-sensor
+      TIMESCALEDB_TELEMETRY: off
+      # 可选：针对容器资源进行 tune
+      TS_TUNE_MEMORY: 512M
+      TS_TUNE_NUM_CPUS: 1
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    mem_limit: 512M
+    cpus: 1.0

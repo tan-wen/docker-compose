@@ -1,0 +1,10 @@
+services:
+  openresty:
+    image: openresty/openresty:alpine
+    container_name: openresty-test
+    ports:
+      - "80:80"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./html:/usr/local/openresty/nginx/html
+      - ./logs:/usr/local/openresty/nginx/logs

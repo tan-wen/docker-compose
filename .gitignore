@@ -1,1 +1,4 @@
 volumes/
+**/data/
+**/log/
+**/logs/
