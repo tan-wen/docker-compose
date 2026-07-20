@@ -2,8 +2,8 @@
 services:
 
   mysql:
-    image: mysql:8.0.27
-    command: --default-authentication-plugin=mysql_native_password
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password --innodb-strict-mode=OFF
     container_name: mysql
     ports:
       - 3306:3306
@@ -16,7 +16,7 @@ services:
     cpus: 1.0
   
   mariadb:
-    image: mariadb
+    image: mariadb:lts-ubi9
     container_name: mariadb
     #restart: always
     ports:
@@ -29,7 +29,7 @@ services:
     cpus: 1.0
   
   redis:
-    image: redis
+    image: redis:7.4.8
     container_name: redis
     #restart: always
     ports:

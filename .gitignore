@@ -2,3 +2,4 @@ volumes/
 **/data/
 **/log/
 **/logs/
+**/*.jar

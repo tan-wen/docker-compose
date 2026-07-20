@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+
+  thingsboard:
+    image: eclipse-temurin:25-jre
+
+    container_name: thingsboard
+
+    restart: unless-stopped
+
+    ports:
+      - "8080:8080"
+      - "1883:1883"
+      - "5683:5683/udp"
+
+    environment:
+      TZ: Asia/Shanghai
+
+      JAVA_TOOL_OPTIONS: >
+        -Xms2g
+        -Xmx2g
+        -XX:+UseG1GC
+        -Dlogging.config=/config/logback.xml
+
+    volumes:
+      # jar 外置
+      - ./thingsboard.jar:/app/thingsboard.jar:ro
+
+      # 配置外置
+      - ./config:/config
+
+      # 日志外置
+      - ./logs:/logs
+
+      # 数据缓存（rule engine / temp）
+      - ./data:/data
+
+    working_dir: /app
+
+    command: >
+      java
+      -jar /app/thingsboard.jar 
+      --spring.config.additional-location=file:/config/
+
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/login"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+    ulimits:
+      nofile:
+        soft: 100000
+        hard: 100000
